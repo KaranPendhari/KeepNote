@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "62312735041",
+    "project_id": "keepnote-ccd55",
+    "storage_bucket": "keepnote-ccd55.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62312735041:android:6ded4c949b5515486881c0",
+        "android_client_info": {
+          "package_name": "com.example.keepnote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjLMJ6lysK8Cw6BvVk_4G_pVMYAS40neE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
