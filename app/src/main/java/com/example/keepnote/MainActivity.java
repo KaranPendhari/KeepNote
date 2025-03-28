@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build());
 
         // Initialize Drawer and Toggle Button
         drawerLayout = findViewById(R.id.drawer_layout);

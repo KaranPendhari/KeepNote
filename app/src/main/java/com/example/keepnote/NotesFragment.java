@@ -20,6 +20,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Source;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,16 @@ public class NotesFragment extends Fragment {
         String userId = auth.getCurrentUser().getUid();
         notesRef = db.collection("Notes").document(userId).collection("UserNotes");
 
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.enableNetwork();
+
+
+        FirebaseFirestore.getInstance().addSnapshotsInSyncListener(() -> {
+            if (auth.getCurrentUser() != null) {
+                loadNotesFromFirestore();
+            }
+        });
         // Load Notes from Firestore
         loadNotesFromFirestore();
 
@@ -59,7 +71,31 @@ public class NotesFragment extends Fragment {
     }
 
     private void loadNotesFromFirestore() {
-        notesRef.orderBy("timestamp", Query.Direction.DESCENDING).get()
+        notesRef.orderBy("timestamp", Query.Direction.DESCENDING)
+                .get(Source.CACHE) // First, try loading from cache
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    noteList = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        Note note = doc.toObject(Note.class);
+                        noteList.add(note);
+                    }
+                    noteAdapter = new NoteAdapter(getContext(), noteList);
+                    recyclerViewNotes.setAdapter(noteAdapter);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to load notes.", Toast.LENGTH_SHORT).show();
+                    // If cache fails, try server
+                    loadNotesFromServer();
+                });
+    }
+
+
+
+
+    // Load notes from Firestore server when cache is unavailable
+    private void loadNotesFromServer() {
+        notesRef.orderBy("timestamp", Query.Direction.DESCENDING)
+                .get(Source.SERVER)
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     noteList = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -70,8 +106,11 @@ public class NotesFragment extends Fragment {
                     recyclerViewNotes.setAdapter(noteAdapter);
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), "Failed to load notes.", Toast.LENGTH_SHORT).show());
+                        Toast.makeText(getContext(), "Failed to load notes from server.", Toast.LENGTH_SHORT).show()
+                );
     }
+
+
 
     private void showAddNoteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -113,7 +152,14 @@ public class NotesFragment extends Fragment {
                     noteAdapter.notifyItemInserted(0);
                     recyclerViewNotes.scrollToPosition(0);
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), "Failed to add note", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Offline mode: Note will sync when online", Toast.LENGTH_SHORT).show();
+                    // Add to local cache manually for immediate UI update
+                    noteList.add(0, note);
+                    noteAdapter.notifyItemInserted(0);
+                    recyclerViewNotes.scrollToPosition(0);
+                });
     }
+
+
 }

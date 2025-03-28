@@ -1,22 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCommunities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="80dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCommunityOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Community Section"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingBottom="16dp" />
+        android:src="@android:drawable/ic_input_add"
+        android:layout_margin="16dp"
+        android:contentDescription="Community Options"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_community"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false" />
-</LinearLayout>
+</RelativeLayout>

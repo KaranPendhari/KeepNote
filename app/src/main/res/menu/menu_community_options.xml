@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_create_community"
+        android:title="Create Community"
+        android:icon="@android:drawable/ic_input_add"/>
+    <item
+        android:id="@+id/menu_join_community"
+        android:title="Join Community"
+        android:icon="@android:drawable/ic_menu_send"/>
+</menu>

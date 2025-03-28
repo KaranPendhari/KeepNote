@@ -1,9 +1,10 @@
-<!-- res/layout/dialog_add_note.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:elevation="4dp">
 
     <EditText
         android:id="@+id/etTitle"
@@ -11,8 +12,10 @@
         android:layout_height="wrap_content"
         android:hint="Note Title"
         android:inputType="text"
+        android:maxLength="100"
         android:minHeight="48dp"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:background="@android:drawable/edit_text" />
 
     <EditText
         android:id="@+id/etContent"
@@ -20,8 +23,10 @@
         android:layout_height="wrap_content"
         android:hint="Note Content"
         android:inputType="textMultiLine"
+        android:maxLength="500"
         android:minHeight="100dp"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:background="@android:drawable/edit_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,19 +37,27 @@
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="@android:color/black"
+            android:background="@android:color/darker_gray"
+            android:padding="8dp"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Save"
-            android:layout_marginStart="12dp"
             android:textStyle="bold"
+            android:textSize="16sp"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 
 </LinearLayout>
