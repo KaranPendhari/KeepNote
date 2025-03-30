@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Existing colors -->
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorText">#000000</color>
+
+    <!-- Add these new colors for the drawing app -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Drawing tool colors -->
+    <color name="pen_color">#FF000000</color>
+    <color name="brush_color">#FF0000FF</color>
+    <color name="highlighter_color">#80FFFF00</color>  <!-- Semi-transparent yellow -->
+
+    <!-- Button states -->
+    <color name="button_selected">#6200EE</color>
+    <color name="button_unselected">#FFFFFF</color>
+    <color name="button_text_selected">#FFFFFF</color>
+    <color name="button_text_unselected">#6200EE</color>
+    <color name="button_icon_selected">#FFFFFF</color>
+    <color name="button_icon_unselected">#6200EE</color>
 </resources>

@@ -16,10 +16,12 @@ materialVersion = "1.11.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.2.0"
 firebaseFirestore = "25.1.2"
+retrofit = "2.9.0"
 runner = "1.5.2"
 
 [libraries]
 appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core = { module = "androidx.test:core", version.ref = "core" }
 fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -34,6 +36,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 material-v1110 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 runner = { module = "androidx.test:runner", version.ref = "runner" }
 
 [plugins]

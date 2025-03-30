@@ -1,6 +1,7 @@
 package com.example.keepnote;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,83 +9,133 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.util.ArrayList;
 
 public class DrawingView extends View {
-    private Paint paint;
-    private Path currentPath;
-    private ArrayList<Path> paths;
-    private ArrayList<Integer> strokeTypes;
-    private int currentPage = 0;
-
-    // Stroke types
     public static final int PEN = 0;
     public static final int BRUSH = 1;
     public static final int HIGHLIGHTER = 2;
 
+    private int currentTool = PEN;
+    private Paint paint;
+    private Path currentPath;
+    private ArrayList<DrawingPath> paths = new ArrayList<>();
+    private Bitmap canvasBitmap;
+    private Canvas drawCanvas;
+
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        paths = new ArrayList<>();
-        strokeTypes = new ArrayList<>();
-        paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(8f);
-        paint.setAntiAlias(true);
-        startNewPage();
+        setupDrawing();
     }
 
-    // Add a new page
-    public void startNewPage() {
+    private void setupDrawing() {
         currentPath = new Path();
-        paths.add(currentPath);
-        strokeTypes.add(PEN);
-        invalidate();
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        updatePaintSettings();
     }
 
-    // Set the current stroke type (Pen, Brush, Highlighter)
-    public void setStrokeType(int strokeType) {
-        paint.setStrokeWidth(strokeType == BRUSH ? 16f : 8f);
-        paint.setAlpha(strokeType == HIGHLIGHTER ? 128 : 255);
-        strokeTypes.set(currentPage, strokeType);
+    private void updatePaintSettings() {
+        switch (currentTool) {
+            case PEN:
+                paint.setColor(Color.BLACK);
+                paint.setStrokeWidth(5f);
+                paint.setAlpha(255);
+                break;
+            case BRUSH:
+                paint.setColor(Color.BLUE);
+                paint.setStrokeWidth(15f);
+                paint.setAlpha(255);
+                break;
+            case HIGHLIGHTER:
+                paint.setColor(Color.YELLOW);
+                paint.setStrokeWidth(25f);
+                paint.setAlpha(150); // Semi-transparent
+                break;
+        }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        drawCanvas = new Canvas(canvasBitmap);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        // Draw the background
+        canvas.drawBitmap(canvasBitmap, 0, 0, paint);
 
-        for (int i = 0; i < paths.size(); i++) {
-            paint.setAlpha(strokeTypes.get(i) == HIGHLIGHTER ? 128 : 255);
-            canvas.drawPath(paths.get(i), paint);
+        // Draw all saved paths
+        for (DrawingPath dp : paths) {
+            paint.setColor(dp.color);
+            paint.setStrokeWidth(dp.strokeWidth);
+            paint.setAlpha(dp.alpha);
+            canvas.drawPath(dp.path, paint);
         }
+
+        // Draw the current path
+        canvas.drawPath(currentPath, paint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
+        float touchX = event.getX();
+        float touchY = event.getY();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                currentPath.moveTo(x, y);
+                currentPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE:
-                currentPath.lineTo(x, y);
+                currentPath.lineTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_UP:
+                drawCanvas.drawPath(currentPath, paint);
+                paths.add(new DrawingPath(currentPath, paint.getColor(),
+                        paint.getStrokeWidth(), paint.getAlpha()));
+                currentPath = new Path();
                 break;
+            default:
+                return false;
         }
+
         invalidate();
         return true;
     }
 
-    // Switch to a specific page
-    public void setCurrentPage(int pageIndex) {
-        if (pageIndex >= 0 && pageIndex < paths.size()) {
-            currentPage = pageIndex;
-            currentPath = paths.get(pageIndex);
-            invalidate();
+    public void setCurrentTool(int tool) {
+        this.currentTool = tool;
+        updatePaintSettings();
+    }
+
+    public int getCurrentTool() {
+        return currentTool;
+    }
+
+    public void clearCanvas() {
+        paths.clear();
+        if (canvasBitmap != null) {
+            canvasBitmap.eraseColor(Color.TRANSPARENT);
+        }
+        invalidate();
+    }
+
+    private static class DrawingPath {
+        Path path;
+        int color;
+        float strokeWidth;
+        int alpha;
+
+        DrawingPath(Path path, int color, float strokeWidth, int alpha) {
+            this.path = new Path(path); // Create a new copy
+            this.color = color;
+            this.strokeWidth = strokeWidth;
+            this.alpha = alpha;
         }
     }
 }

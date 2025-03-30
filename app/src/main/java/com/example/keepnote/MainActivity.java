@@ -2,7 +2,6 @@ package com.example.keepnote;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.nav_canvas) {
                 // Open Canvas Activity when "Canvas" is clicked
-                Intent canvasIntent = new Intent(this, Canvas.class);
+                Intent canvasIntent = new Intent(this, CanvasActivity.class);
                 startActivity(canvasIntent);
                 drawerLayout.closeDrawers(); // Close the drawer after selection
                 return true;

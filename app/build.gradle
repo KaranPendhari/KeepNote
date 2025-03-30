@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.keepnote"
-        minSdk 28
+        minSdk 27
         targetSdk 35
         versionCode 1
         versionName "1.0"
@@ -46,5 +46,8 @@ dependencies {
     androidTestImplementation libs.core
     androidTestImplementation libs.runner
     androidTestImplementation libs.junit.v115
+
+    implementation libs.retrofit
+    implementation libs.converter.gson
 
 }
