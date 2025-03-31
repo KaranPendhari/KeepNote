@@ -1,56 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Title EditText -->
-    <EditText
-        android:id="@+id/etEditTitle"
+    <!-- Title Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
-        android:background="@android:drawable/editbox_background"
         android:hint="Title"
-        android:minHeight="48dp"
-        android:padding="10dp"
-        android:textSize="18sp" />
+        app:endIconMode="clear_text">
 
-    <!-- Content EditText (Your Provided Code) -->
-    <EditText
-        android:id="@+id/etEditContent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEditTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="10dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Content Input (Stretches till Buttons) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/contentInputLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/etEditTitle"
+        android:layout_below="@id/titleInputLayout"
         android:layout_above="@+id/btnSave"
-        android:layout_marginTop="16dp"
-        android:hint="Note"
-        android:textSize="16sp"
-        android:padding="10dp"
-        android:minHeight="200dp"
-        android:gravity="top"
-        android:background="@android:drawable/editbox_background" />
+        android:layout_marginTop="12dp"
+        android:hint="Write your note here..."
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEditContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:minLines="6"
+            android:maxLines="20"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Save Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Cancel Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"/>
 
 </RelativeLayout>

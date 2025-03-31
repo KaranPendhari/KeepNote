@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
@@ -44,10 +43,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
+
             if (item.getItemId() == R.id.nav_notes) {
                 selectedFragment = new NotesFragment();
             } else if (item.getItemId() == R.id.nav_community) {
                 selectedFragment = new CommunityFragment();
+            } else if (item.getItemId() == R.id.nav_settings) {
+                // Open Settings Activity instead of loading a fragment
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
             }
 
             if (selectedFragment != null) {
@@ -61,31 +65,17 @@ public class MainActivity extends AppCompatActivity {
         // Sidebar Menu Clicks
         NavigationView navigationView = findViewById(R.id.sidebar);
         navigationView.setNavigationItemSelectedListener(item -> {
-            // Handling menu items with if-else instead of switch
             if (item.getItemId() == R.id.nav_logout) {
                 showLogoutConfirmation();
-                drawerLayout.closeDrawers(); // Close the drawer after selection
-                return true;
             } else if (item.getItemId() == R.id.nav_canvas) {
-                // Open Canvas Activity when "Canvas" is clicked
-                Intent canvasIntent = new Intent(this, CanvasActivity.class);
-                startActivity(canvasIntent);
-                drawerLayout.closeDrawers(); // Close the drawer after selection
-                return true;
+                startActivity(new Intent(this, CanvasActivity.class));
             } else if (item.getItemId() == R.id.nav_settings) {
-                // Open SettingsActivity when "Settings" is clicked
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
-                drawerLayout.closeDrawers(); // Close the drawer after selection
-                return true;
+                startActivity(new Intent(this, SettingsActivity.class));
             } else if (item.getItemId() == R.id.nav_aboutus) {
-                // Open About Activity when "About" is clicked
-                Intent aboutUsIntent = new Intent(this, AboutUsActivity.class);
-                startActivity(aboutUsIntent);
-                drawerLayout.closeDrawers(); // Close the drawer after selection
-                return true;
+                startActivity(new Intent(this, AboutUsActivity.class));
             }
-            return false;
+            drawerLayout.closeDrawers();
+            return true;
         });
 
         // Default fragment

@@ -24,4 +24,13 @@
     <color name="button_text_unselected">#6200EE</color>
     <color name="button_icon_selected">#FFFFFF</color>
     <color name="button_icon_unselected">#6200EE</color>
+
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary background color for Light Mode -->
+        <item name="android:background">@android:color/white</item>
+        <!-- Text color for Light Mode -->
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

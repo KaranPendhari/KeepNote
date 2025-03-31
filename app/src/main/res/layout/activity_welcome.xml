@@ -7,38 +7,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp"
+    android:padding="24dp"
     tools:context=".MainActivity">
 
+    <!-- Welcome Text -->
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hi"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
 
+    <!-- Lottie Animation -->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="Animation - 1739716063212.json"
         app:lottie_loop="true"
-        android:layout_marginBottom="24dp" />
+        app:lottie_fileName="Animation - 1739716063212.json"
+        android:layout_marginBottom="32dp" />
 
+    <!-- Log In Button -->
     <Button
         android:id="@+id/welcomelogin"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp"
+        android:backgroundTint="@android:color/black"
+        android:textColor="@android:color/white"
+        android:paddingVertical="12dp"
+        android:layout_marginBottom="12dp" />
 
+    <!-- Sign Up Button -->
     <Button
         android:id="@+id/welcomeSignup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        />
+        android:textSize="16sp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:paddingVertical="12dp" />
+
 </LinearLayout>

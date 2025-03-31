@@ -46,7 +46,7 @@ dependencies {
     androidTestImplementation libs.core
     androidTestImplementation libs.runner
     androidTestImplementation libs.junit.v115
-
+    implementation libs.material.v1110
     implementation libs.retrofit
     implementation libs.converter.gson
 
