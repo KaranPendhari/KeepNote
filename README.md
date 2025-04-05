@@ -40,7 +40,13 @@
 
 ## Screenshots
 
-(Add key screenshots of the app here, such as text notes, drawing interface, voice notes, and community view.)
+![image](https://github.com/user-attachments/assets/f06f6eae-eeb6-499b-9400-af01f0df65de)
+![image](https://github.com/user-attachments/assets/76076b0e-4d8c-46c9-8bb7-a8a0c271087b)
+![image](https://github.com/user-attachments/assets/a6b234fd-f640-4da4-acaa-1ebb69167507)
+![image](https://github.com/user-attachments/assets/28430084-3638-4abb-ab76-00c4701c0ab7)
+![image](https://github.com/user-attachments/assets/5f5c2f22-740b-4217-8297-c1e0e9026e4e)
+
+
 
 ## Future Enhancements
 
